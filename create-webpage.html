@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz - FunTime</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #1a1a40; /* Dark matte blue border */
+            border-radius: 15px;
+            background-color: #fff; /* White background for the quiz container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #1a1a40; /* Dark matte blue text */
+        }
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .option-button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .option-button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .result {
+            font-size: 1.5em;
+            margin-top: 20px;
+            display: none;
+        }
+        .result.correct {
+            color: green;
+        }
+        .result.wrong {
+            color: red;
+        }
+        .back-button {
+            display: block;
+            background-color: #1a1a40; /* Dark matte blue background */
+            color: #f5f5dc; /* Cream text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 20px auto;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trivia Quiz</h1>
+        <div id="quiz-container">
+            <div class="question" id="question">Loading question...</div>
+            <ul class="options">
+                <li><button class="option-button" data-answer="0">Option 1</button></li>
+                <li><button class="option-button" data-answer="1">Option 2</button></li>
+                <li><button class="option-button" data-answer="2">Option 3</button></li>
+                <li><button class="option-button" data-answer="3">Option 4</button></li>
+            </ul>
+            <div class="result" id="result"></div>
+        </div>
+        <a href="index.html" class="back-button">Back to Home</a>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the capital of Germany?",
+                options: ["Berlin", "Munich", "Hamburg", "Frankfurt"],
+                correct: 0
+            },
+            {
+                question: "Which German city is known for its annual Oktoberfest?",
+                options: ["Berlin", "Munich", "Hamburg", "Frankfurt"],
+                correct: 1
+            },
+            {
+                question: "Which river flows through the city of Hamburg?",
+                options: ["Elbe", "Rhine", "Danube", "Oder"],
+                correct: 0
+            },
+            {
+                question: "Where is the European Central Bank located?",
+                options: ["Berlin", "Munich", "Hamburg", "Frankfurt"],
+                correct: 3
+            },
+            {
+                question: "What is the largest planet in our Solar System?",
+                options: ["Earth", "Mars", "Jupiter", "Saturn"],
+                correct: 2
+            },
+            {
+                question: "Who wrote 'Hamlet'?",
+                options: ["Charles Dickens", "William Shakespeare", "J.K. Rowling", "Mark Twain"],
+                correct: 1
+            },
+            {
+                question: "What is the chemical symbol for gold?",
+                options: ["Ag", "Au", "Pb", "Fe"],
+                correct: 1
+            },
+            {
+                question: "Which artist painted the Mona Lisa?",
+                options: ["Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Leonardo da Vinci"],
+                correct: 3
+            },
+            {
+                question: "What is the tallest mountain in the world?",
+                options: ["K2", "Mount Everest", "Kangchenjunga", "Lhotse"],
+                correct: 1
+            },
+            {
+                question: "What is the smallest country in the world?",
+                options: ["Monaco", "Nauru", "San Marino", "Vatican City"],
+                correct: 3
+            }
+        ];
+
+        let currentQuestion = 0;
+        let shuffledQuestions = [];
+
+        function shuffleQuestions() {
+            shuffledQuestions = questions.sort(() => Math.random() - 0.5).slice(0, 5);
+        }
+
+        function loadQuestion(questionIndex) {
+            const questionElement = document.getElementById('question');
+            const options = document.querySelectorAll('.option-button');
+            const result = document.getElementById('result');
+
+            const question = shuffledQuestions[questionIndex];
+
+            questionElement.textContent = question.question;
+            options.forEach((button, index) => {
+                button.textContent = question.options[index];
+                button.onclick = () => checkAnswer(index);
+            });
+
+            result.style.display = 'none';
+        }
+
+        function checkAnswer(selectedIndex) {
+            const question = shuffledQuestions[currentQuestion];
+            const result = document.getElementById('result');
+
+            if (selectedIndex === question.correct) {
+                result.textContent = "Correct!";
+                result.className = 'result correct';
+            } else {
+                result.textContent = "Wrong! The correct answer was " + question.options[question.correct] + ".";
+                result.className = 'result wrong';
+            }
+
+            result.style.display = 'block';
+            currentQuestion++;
+            if (currentQuestion < shuffledQuestions.length) {
+                setTimeout(() => loadQuestion(currentQuestion), 2000);
+            } else {
+                setTimeout(() => {
+                    result.textContent = "Quiz Finished! Refresh the page to play again.";
+                    result.className = 'result correct';
+                    result.style.display = 'block';
+                }, 2000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            shuffleQuestions();
+            loadQuestion(currentQuestion);
+        });
+    </script>
+</body>
+</html>

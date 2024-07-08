@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game - FunTime</title>
+    <style>
+        /* Your CSS styles for the Sudoku game */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #1a1a40; /* Dark matte blue background */
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 750px;
+            height: auto; /* Adjusted to accommodate varying content height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #f5f5dc; /* Cream text */
+        }
+        .sudoku-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 50px); /* Increased cell size */
+            grid-template-rows: repeat(9, 50px); /* Increased cell size */
+            gap: 1px; /* Reduced gap for clearer boxes */
+            margin-top: 20px;
+        }
+        .sudoku-cell {
+            background-color: #ffffff; /* White cell background */
+            border: 1px solid #1a1a40; /* Dark matte blue border */
+            height: 50px; /* Increased cell size */
+            width: 50px; /* Increased cell size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            cursor: pointer;
+            user-select: none;
+        }
+        .sudoku-cell:focus {
+            outline: none;
+            background-color: #f5f5dc; /* Cream background on focus */
+        }
+        .button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .back-button {
+            background-color: transparent;
+            border: 2px solid #1a1a40; /* Dark matte blue border */
+            color: #f5f5dc; /* Dark matte blue text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px; /* Space between survey and back button */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #f5f5dc; /* Dark matte blue background on hover */
+            color: #1a1a40; /* Cream text on hover */
+        }
+
+        /* Additional styles for Sudoku blocks */
+        .block {
+            border: 2px solid #1a1a40; /* Dark matte blue border around blocks */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            overflow: hidden; /* Hide overflow for clear block boundaries */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku Game</h1>
+        <div class="sudoku-grid" id="sudoku-board">
+            <!-- Sudoku grid will be generated dynamically using JavaScript -->
+        </div>
+        <button class="button" onclick="startSudoku()">Start Sudoku</button>
+        <a href="games.html" class="back-button">Back</a>
+    </div>
+
+    <script>
+        // Function to start Sudoku game
+        function startSudoku() {
+            // Generate Sudoku grid
+            generateSudokuGrid();
+        }
+
+        function generateSudokuGrid() {
+            const sudokuBoard = document.getElementById('sudoku-board');
+            sudokuBoard.innerHTML = '';
+
+            // Example initial Sudoku grid (dummy data)
+            const initialGrid = [
+                [5, 3, '', '', 7, '', '', '', ''],
+                [6, '', '', 1, 9, 5, '', '', ''],
+                ['', 9, 8, '', '', '', '', 6, ''],
+                [8, '', '', '', 6, '', '', '', 3],
+                [4, '', '', 8, '', 3, '', '', 1],
+                [7, '', '', '', 2, '', '', '', 6],
+                ['', 6, '', '', '', '', 2, 8, ''],
+                ['', '', '', 4, 1, 9, '', '', 5],
+                ['', '', '', '', 8, '', '', 7, 9]
+            ];
+
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('sudoku-cell');
+
+                    // Add class to create blocks
+                    if ((i < 3 && j < 3) || (i < 3 && j >= 3 && j < 6) || (i < 3 && j >= 6) ||
+                        (i >= 3 && i < 6 && j < 3) || (i >= 3 && i < 6 && j >= 3 && j < 6) || (i >= 3 && i < 6 && j >= 6) ||
+                        (i >= 6 && j < 3) || (i >= 6 && j >= 3 && j < 6) || (i >= 6 && j >= 6)) {
+                        cell.classList.add('block');
+                    }
+
+                    cell.setAttribute('contenteditable', 'true');
+                    cell.textContent = initialGrid[i][j] === '' ? '' : initialGrid[i][j];
+                    sudokuBoard.appendChild(cell);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

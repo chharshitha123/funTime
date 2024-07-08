@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to FunTime!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #f5f5dc; /* Cream text */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            background-color: #1a1a40; /* Dark matte blue background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+        .button {
+            background-color: #f5f5dc; /* Cream button */
+            color: #1a1a40; /* Dark matte blue text */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #f5f5dc; /* Light grey hover effect */
+        }
+        .animated-border {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .animated-border div {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #1a1a40, #f5f5dc, #1a1a40, #f5f5dc);
+            background-size: 200% 200%;
+            animation: animate 3s linear infinite;
+        }
+        .animated-border div:nth-child(1) {
+            top: -50%;
+            left: -50%;
+            animation-delay: 0s;
+        }
+        .animated-border div:nth-child(2) {
+            top: -50%;
+            right: -50%;
+            animation-delay: 2.5s;
+        }
+        .animated-border div:nth-child(3) {
+            bottom: -50%;
+            left: -50%;
+            animation-delay: 2s;
+        }
+        .animated-border div:nth-child(4) {
+            bottom: -50%;
+            right: -50%;
+            animation-delay: 4s;
+        }
+        @keyframes animate {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50%, 50%); }
+        }
+        .background-fox {
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-border">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="container">
+        <h1>Welcome to FunTime!</h1>
+        <p>Are you bored? You've come to the right place! Dive in and explore a world of fun.</p>
+        <a href="survey.html" class="button">Let's Go!</a>
+    </div>
+    <img src="https://example.com/fox.png" alt="Fox" class="background-fox">
+</body>
+</html>

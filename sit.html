@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hold Your Breath Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #1a1a40; /* Dark matte blue background */
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 750px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #f5f5dc; /* Cream text */
+        }
+        p {
+            font-size: 1.2em;
+            color: #f5f5dc; /* Cream text */
+        }
+        .timer {
+            font-size: 2em;
+            margin-top: 20px;
+            color: #f5f5dc; /* Cream text */
+        }
+        .start-button, .stop-button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            margin-right: 10px; /* Space between buttons */
+        }
+        .start-button:hover, .stop-button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hold Your Breath Challenge</h1>
+        <p>Can you hold your breath for 30 seconds?</p>
+        <div class="timer" id="timer">30</div>
+        <button class="start-button" onclick="startTimer()">Start</button>
+        <button class="stop-button" onclick="stopTimer()">Stop</button>
+    </div>
+
+    <script>
+        let countdown;
+
+        function startTimer() {
+            const timerElement = document.getElementById('timer');
+            let timeLeft = 30;
+            timerElement.textContent = timeLeft;
+
+            countdown = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timerElement.textContent = 'Time\'s up!';
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(countdown);
+            document.getElementById('timer').textContent = 'Stopped';
+        }
+    </script>
+</body>
+</html>

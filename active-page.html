@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boredom Survey - Active Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #1a1a40; /* Dark matte blue background */
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 750px;
+            text-align: left;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #f5f5dc; /* Cream text */
+        }
+        .question {
+            margin-bottom: 1em;
+            color: #f5f5dc;
+            font: "sans-serif";
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 0.5em;
+        }
+        .option {
+            background-color: #1a1a40; /* Dark matte blue background */
+            color: #f5f5dc; /* Cream text */
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1 0 calc(50% - 10px); /* Two options per row */
+            text-align: center;
+        }
+        .option:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .option.selected {
+            background-color: #1a1a40; /* Cream background for selected option */
+            color: #f5f5dc; /* Dark matte blue text for selected option */
+        }
+        .button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .back-button {
+            background-color: transparent;
+            border: 2px solid #1a1a40; /* Dark matte blue border */
+            color: #f5f5dc; /* Dark matte blue text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px; /* Adjusted margin top */
+            transition: background-color 0.3s, color 0.3s;
+            text-decoration: none; /* Remove underline */
+            display: inline-block;
+        }
+        .back-button:hover {
+            background-color: #f5f5dc; /* Dark matte blue background on hover */
+            color: #1a1a40; /* Cream text on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Feeling a little bored?</h1>
+        <div class="question">
+            <p>Are you active enough to move?</p>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 'move.html')">Yes</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>Do you want to do something while sitting still?</p>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 'sit.html')">Yes</div>
+            </div>
+        </div>
+        <button class="button" onclick="submitSurvey()">Submit</button>
+        <a href="survey.html" class="back-button">Back</a>
+    </div>
+
+    <script>
+        function selectOption(option, redirectPage) {
+            const options = option.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+
+            // Redirect to the appropriate page
+            if (option.textContent === 'Yes') {
+                window.location.href = redirectPage;
+            }
+        }
+
+        function submitSurvey() {
+            const activeEnough = document.querySelector('.question:nth-child(1) .option.selected').textContent;
+            const wantToSitStill = document.querySelector('.question:nth-child(2) .option.selected').textContent;
+
+            // Example of what you might do with the survey data
+            console.log('Active enough to move:', activeEnough);
+            console.log('Want to do something while sitting still:', wantToSitStill);
+
+            // Redirect or process the data as needed
+            window.location.href = 'final-page.html'; // Replace with your actual final page URL
+        }
+    </script>
+</body>
+</html>

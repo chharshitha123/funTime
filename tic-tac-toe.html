@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #1a1a40; /* Dark matte blue background */
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 750px;
+        }
+        h1 {
+            color: #f5f5dc;
+        }
+        .tic-tac-toe-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+        .tic-tac-toe-cell {
+            background-color: #f5f5dc;
+            color: #1a1a40;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tic-Tac-Toe</h1>
+        <div class="tic-tac-toe-board" id="ticTacToeBoard">
+            <!-- Cells will be generated here -->
+        </div>
+        <button class="button" onclick="resetGame()">Reset Game</button>
+    </div>
+    <script>
+        const board = document.getElementById('ticTacToeBoard');
+        let currentPlayer = 'X';
+        const cells = [];
+
+        function createBoard() {
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('tic-tac-toe-cell');
+                cell.addEventListener('click', () => makeMove(cell, i));
+                board.appendChild(cell);
+                cells.push(cell);
+            }
+        }
+
+        function makeMove(cell, index) {
+            if (cell.textContent === '') {
+                cell.textContent = currentPlayer;
+                if (checkWin(currentPlayer)) {
+                    alert(currentPlayer + ' wins!');
+                    resetGame();
+                } else if (cells.every(cell => cell.textContent !== '')) {
+                    alert('It\'s a draw!');
+                    resetGame();
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                }
+            }
+        }
+
+        function checkWin(player) {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6]             // diagonals
+            ];
+
+            return winPatterns.some(pattern => 
+                pattern.every(index => cells[index].textContent === player)
+            );
+        }
+
+        function resetGame() {
+            cells.forEach(cell => cell.textContent = '');
+            currentPlayer = 'X';
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>

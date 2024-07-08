@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boredom Survey - FunTime</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #1a1a40; /* Dark matte blue background */
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 750px;
+            height: auto; /* Adjusted to accommodate varying content height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #f5f5dc; /* Cream text */
+        }
+        .survey-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; /* Adjust spacing between options */
+        }
+        .survey-option {
+            background-color: #1a1a40; /* Dark matte blue background */
+            color: #f5f5dc; /* Cream text */
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 160px; /* Adjust width as needed */
+        }
+        .survey-option:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .survey-option input {
+            display: none;
+        }
+        .survey-option.selected {
+            background-color: #f5f5dc; /* Cream background for selected option */
+            color: #1a1a40; /* Dark matte blue text for selected option */
+        }
+        .button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .back-button {
+            background-color: transparent;
+            border: 2px solid #1a1a40; /* Dark matte blue border */
+            color: #f5f5dc; /* Dark matte blue text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px; /* Space between survey and back button */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #f5f5dc; /* Dark matte blue background on hover */
+            color: #1a1a40; /* Cream text on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Boredom Survey</h1>
+        <form id="survey-form" action="process-survey.php" method="post">
+            <div class="survey-options">
+                <label class="survey-option">
+                    <input type="radio" name="boredom-level" value="not-bored-at-all">
+                    <div>Not bored at all! :)</div>
+                </label>
+                <label class="survey-option">
+                    <input type="radio" name="boredom-level" value="a-little-bored">
+                    <div>A little bored :|</div>
+                </label>
+                <label class="survey-option">
+                    <input type="radio" name="boredom-level" value="moderately-bored">
+                    <div>Moderately bored :/</div>
+                </label>
+                <label class="survey-option">
+                    <input type="radio" name="boredom-level" value="very-bored">
+                    <div>Very bored :(</div>
+                </label>
+                <label class="survey-option">
+                    <input type="radio" name="boredom-level" value="extremely-bored">
+                    <div>Extremely bored :'(</div>
+                </label>
+            </div>
+            <button type="submit" class="button">Submit</button>
+        </form>
+        <a href="index.html" class="back-button">Back</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const options = document.querySelectorAll('.survey-option');
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    const selectedOption = document.querySelector('.survey-option input:checked');
+                    if (selectedOption && selectedOption.value === 'not-bored-at-all') {
+                        window.location.href = 'redirect-page.html';
+                    } else if (selectedOption && selectedOption.value === 'a-little-bored') {
+                        window.location.href = 'active-page.html';
+                    } else if (selectedOption && selectedOption.value === 'moderately-bored') {
+                        window.location.href = 'games.html'; // Redirect to games page
+                    } else if (selectedOption && selectedOption.value === 'very-bored') {
+                        window.location.href = 'canvas.html'; // Redirect to canvas art page
+                    } else if (selectedOption && selectedOption.value === 'extremely-bored') {
+                        window.location.href = 'create-webpage.html'; // Redirect to create webpage page
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

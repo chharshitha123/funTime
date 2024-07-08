@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boredom Survey - Active Page</title>
+    <style>
+        /* Your existing CSS styles */
+        /* Ensure to style each game appropriately */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #1a1a40; /* Dark matte blue background */
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 750px;
+            height: auto; /* Adjusted to accommodate varying content height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #f5f5dc; /* Cream text */
+        }
+        .button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .back-button {
+            background-color: transparent;
+            border: 2px solid #1a1a40; /* Dark matte blue border */
+            color: #f5f5dc; /* Dark matte blue text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px; /* Space between survey and back button */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #f5f5dc; /* Dark matte blue background on hover */
+            color: #1a1a40; /* Cream text on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose a Game</h1>
+        <button class="button" onclick="redirectToGame('memory-game.html')">Memory Game</button>
+        <button class="button" onclick="redirectToGame('tic-tac-toe.html')">Tic-Tac-Toe</button>
+        <button class="button" onclick="redirectToGame('sudoku-game.html')">Sudoku</button>
+
+        <a href="survey.html" class="back-button">Back</a>
+    </div>
+
+    <script>
+        function redirectToGame(url) {
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

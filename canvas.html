@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Art - Artistic Canvas</title>
+    <style>
+        /* Your CSS styles for the canvas */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Cream background */
+            color: #1a1a40; /* Dark matte blue text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+        .canvas-container {
+            background-color: #fff; /* White background for canvas */
+            border: 1px solid #ccc; /* Light gray border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+            height: 70vh; /* Fixed height for canvas */
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        canvas {
+            cursor: crosshair;
+            touch-action: none; /* Disable touch scroll on canvas */
+        }
+        .toolbar {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #1a1a40; /* Dark matte blue background for button */
+            color: #f5f5dc; /* Cream text for button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .button:hover {
+            background-color: #f5f5dc; /* Cream background on hover */
+            color: #1a1a40; /* Dark matte blue text on hover */
+        }
+        .color-picker {
+            margin-left: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .color-picker:hover {
+            border-color: #1a1a40; /* Dark matte blue border on hover */
+        }
+        .color-picker.selected {
+            border-color: #1a1a40; /* Dark matte blue border for selected color */
+        }
+        .eraser-button {
+            background-color: #fff; /* White background for eraser */
+            border: 2px solid #1a1a40; /* Dark matte blue border */
+            color: #1a1a40; /* Dark matte blue text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .eraser-button:hover {
+            background-color: #1a1a40; /* Dark matte blue background on hover */
+            color: #fff; /* White text on hover */
+        }
+        .eraser-button.active {
+            background-color: #1a1a40; /* Dark matte blue background for active eraser */
+            color: #fff; /* White text for active eraser */
+        }
+    </style>
+</head>
+<body>
+    <h1>Create Your Art</h1>
+    <div class="canvas-container">
+        <canvas id="canvas" width="800" height="500"></canvas>
+    </div>
+    <div class="toolbar">
+        <label for="brush-size">Brush Size:</label>
+        <input type="range" id="brush-size" min="1" max="20" value="5">
+        <input type="color" id="color-picker" class="color-picker" value="#1a1a40">
+        <button class="eraser-button" onclick="toggleEraser()">Eraser</button>
+        <button class="button" onclick="clearCanvas()">Clear Canvas</button>
+        <a href="#" download="my_artwork.png" id="save-button" class="button">Save Artwork</a>
+        <a href="games.html" class="button">Back to Games</a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let painting = false;
+        let brushSize = 5;
+        let currentColor = '#1a1a40'; // Default color
+        let eraserMode = false;
+
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', finishedPosition);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseleave', finishedPosition);
+
+        document.getElementById('brush-size').addEventListener('input', function() {
+            brushSize = this.value;
+        });
+
+        document.getElementById('color-picker').addEventListener('input', function() {
+            currentColor = this.value;
+            eraserMode = false; // Disable eraser when selecting color
+            document.querySelector('.eraser-button').classList.remove('active');
+        });
+
+        function toggleEraser() {
+            eraserMode = !eraserMode;
+            if (eraserMode) {
+                document.querySelector('.eraser-button').classList.add('active');
+            } else {
+                document.querySelector('.eraser-button').classList.remove('active');
+            }
+        }
+
+        function startPosition(e) {
+            painting = true;
+            draw(e);
+        }
+
+        function finishedPosition() {
+            painting = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!painting) return;
+
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            
+            if (eraserMode) {
+                ctx.strokeStyle = '#fff'; // White color for eraser
+                ctx.lineWidth = brushSize + 5; // Larger size for eraser
+            } else {
+                ctx.strokeStyle = currentColor;
+            }
+
+            ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        document.getElementById('save-button').addEventListener('click', function() {
+            const image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+            this.href = image;
+        });
+    </script>
+</body>
+</html>
